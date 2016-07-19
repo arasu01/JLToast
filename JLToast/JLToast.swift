@@ -19,6 +19,10 @@
 
 import UIKit
 
+public enum JLToastPosition {
+    case Top, Bottom
+}
+
 public struct JLToastDelay {
     public static let ShortDelay: NSTimeInterval = 2.0
     public static let LongDelay: NSTimeInterval = 3.5
@@ -65,16 +69,25 @@ public struct JLToastDelay {
     }
     
     public class func makeText(text: String) -> JLToast {
-        return JLToast.makeText(text, delay: 0, duration: JLToastDelay.ShortDelay)
+        return JLToast.makeText(text, delay: 0, duration: JLToastDelay.ShortDelay, position: .Bottom)
     }
     
     public class func makeText(text: String, duration: NSTimeInterval) -> JLToast {
-        return JLToast.makeText(text, delay: 0, duration: duration)
+        return JLToast.makeText(text, delay: 0, duration: duration, position: .Bottom)
+    }
+    
+    public class func makeText(text: String, duration: NSTimeInterval, position:JLToastPosition) -> JLToast {
+        return JLToast.makeText(text, delay: 0, duration: duration, position: position)
     }
     
     public class func makeText(text: String, delay: NSTimeInterval, duration: NSTimeInterval) -> JLToast {
+        return JLToast.makeText(text, delay: delay, duration: duration, position: .Bottom)
+    }
+    
+    public class func makeText(text: String, delay: NSTimeInterval, duration: NSTimeInterval, position: JLToastPosition) -> JLToast {
         let toast = JLToast()
         toast.text = text
+        toast.view.position = position
         toast.delay = delay
         toast.duration = duration
         return toast
